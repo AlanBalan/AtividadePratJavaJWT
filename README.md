@@ -1,69 +1,48 @@
-# Prova-POO JWT Authentication API
+# Atividade prática - Java JWT Authentication API
 
-Este projeto é uma API RESTful desenvolvida com **Spring Boot**, implementando **autenticação JWT**, controle de acesso por roles (ADMIN e USER), e gerenciamento de usuários.
-
-## Tecnologias
+## → Tecnologias
 
 - Java 17
 - Spring Boot 3+
 - Spring Security
-- JWT (JSON Web Token)
+- JWT 
 - H2 Database
 - JPA
 - Maven
 
-## Funcionalidades
+## → Funcionalidades
 
-- Registro de usuários (com role ADMIN ou USER)
-- Login com autenticação JWT
-- Proteção de endpoints com tokens
-- Criação, leitura, atualização e deleção de usuários
-- Acesso seguro baseado em roles
+- Cadastro de usuários com perfis ADMIN ou USER;
+- Login com geração de token JWT;
+- Proteção de rotas através de autenticação via token;
+- Operações CRUD de usuários;
+- Controle de acesso baseado em permissões.
 
-## Como rodar o projeto
+## → Endpoints principais
 
-### Pré-requisitos
+### Autenticação
 
-- Java 17+
-- IDE (IntelliJ)
-- Postman (ou outro cliente HTTP)
+POST /auth/register
+- Realiza o cadastro de um novo usuário (ADMIN ou USER)
 
-### Passos
+POST /auth/login
+- Autentica o usuário e retorna o token JWT
 
-1. Clone o projeto:
+### Usuários
 
-Usando Intellij
-```
- - Abra o IntelliJ, na aba superior procure por "Get from Version Control..."
- - Abrira uma tela:
-              Version control: Git
-              URL: "copie o HTTPS e cole  (https://github.com/euMarim/jwtauth.git)"
-              Directory: Seleciona o ideal para você.
- - Click "Clone".
- - Perfeito clone do git feito.
-```
-### Endpoints principais
+GET /user
+- Retorna todos os usuários (acesso restrito a ADMIN)
 
-## Autenticação
-| Método | Rota             | Descrição         |
-|--------|------------------|-------------------|
-| POST   | `/auth/register` | Cadastro de usuário (ADMIN/USER) |
-| POST   | `/auth/login`    | Login e retorno do token |
+GET /user/{id}
+- Retorna os dados de um usuário específico
 
-## Usuários
-| Método | Rota              | Descrição                |
-|--------|-------------------|--------------------------|
-| GET    | `/user`           | Listar todos os usuários (Somente ADMIN tem acesso) |
-| GET    | `/user/{id}`      | Buscar usuário por ID    |
-| DELETE | `/user/{id}`      | Deletar usuário (Somente ADMIN tem acesso)  |
-| PUT    | `/user/edit`      | Atualizar próprio perfil |
-| PUT    | `/user/{id}`      | Atualizar qualquer usuário (Somente ADMIN tem acesso) |
+DELETE /user/{id}
+- Remove um usuário (apenas ADMIN pode realizar)
 
-## 🪪 Exemplo de autenticação com token JWT
+PUT /user/editar
+- Atualiza o próprio perfil do usuário autenticado
 
-1. Faça login em `/auth/login`
-2. Copie o token recebido
-3. Envie nas requisições protegidas no header:
+PUT /user/{id}
+- Atualiza qualquer usuário (acesso restrito a ADMIN)
 
-```
-Authorization: Bearer SEU_TOKEN_AQUI
+
